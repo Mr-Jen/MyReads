@@ -29,7 +29,10 @@ class BooksApp extends React.Component {
     console.log('Inside App.js Changed to: ', choice[1])
     console.log(choice[0])
     BooksAPI.update(choice[0], choice[1])
-    this.getAllBooks();
+      .then(()=>{
+        this.getAllBooks(); 
+      }
+      )
   }
 
   render() {
