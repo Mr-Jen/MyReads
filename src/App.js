@@ -12,11 +12,31 @@ class BooksApp extends React.Component {
     books: []
   }
 
+  componentDidMount(){
+    this.getAllBooks()
+  }
+
+  getAllBooks(){
+    BooksAPI.getAll()
+      .then((books)=> {
+        this.setState(() => ({
+          books
+        }))
+      })
+  }
+
+  handleChangeCategory = choice => {
+    console.log('Inside App.js Changed to: ', choice[1])
+    console.log(choice[0])
+    BooksAPI.update(choice[0], choice[1])
+    this.getAllBooks();
+  }
+
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={()=> (
-          <ListBooks/>
+          <ListBooks books={this.state.books} handleChangeCategory={(choice) => this.handleChangeCategory(choice)}/>
         )}/>
         <Route path='/search' render={({ history }) => (
           <SearchBook/>
