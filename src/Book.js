@@ -95,6 +95,7 @@ Book.propTypes = {
     books: PropTypes.array.isRequired,
     book: PropTypes.object.isRequired,
     category: PropTypes.string, 
+    insideListBooks: PropTypes.func,
     onChangeCategory: PropTypes.func.isRequired,
 }
 

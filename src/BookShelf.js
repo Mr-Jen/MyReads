@@ -28,6 +28,10 @@ const BookShelf = props => {
         return books.filter(book => book.shelf === shelf)
     }
 
+    const insideListBooks = () => {
+        return true
+    }
+
     return(
         <div className='book-shelf'>
             <ExpansionPanel>
@@ -44,6 +48,7 @@ const BookShelf = props => {
                             <Book 
                                 books={props.books}
                                 book={book} 
+                                insideListBooks={insideListBooks}
                                 category={props.shelfTitle} 
                                 onChangeCategory={(choice) => props.handleChangeCategory(choice)}
                             />
