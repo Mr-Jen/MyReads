@@ -43,9 +43,18 @@ class ListBooks extends Component {
 
                 <div className="list-books-content">
                     <br/><br/><br/>
-                    <BookShelf handleChangeCategory = {(choice) => {this.props.handleChangeCategory(choice)}} books={this.props.books} shelfTitle='Currently Reading' shelf='currentlyReading'/>
-                    <BookShelf handleChangeCategory = {(choice) => {this.props.handleChangeCategory(choice)}} books={this.props.books} shelfTitle='Want To Read' shelf='wantToRead'/>
-                    <BookShelf handleChangeCategory = {(choice) => {this.props.handleChangeCategory(choice)}} books={this.props.books} shelfTitle='Read' shelf='read'/>
+                    <BookShelf 
+                        handleChangeCategory = {(choice) => {this.props.handleChangeCategory(choice)}} 
+                        books={this.props.books} shelfTitle='Currently Reading' shelf='currentlyReading'
+                    />
+                    <BookShelf 
+                        handleChangeCategory = {(choice) => {this.props.handleChangeCategory(choice)}} 
+                        books={this.props.books} shelfTitle='Want To Read' shelf='wantToRead'
+                    />
+                    <BookShelf 
+                        handleChangeCategory = {(choice) => {this.props.handleChangeCategory(choice)}} 
+                        books={this.props.books} shelfTitle='Read' shelf='read'
+                    />
                 </div>
             </div>
         )

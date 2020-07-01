@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import './SearchBook'
 
@@ -16,10 +17,6 @@ class SearchBook extends Component {
             query: query
         }))
     }
-
-    /*clearQuery = () => {
-        this.updateQuery('')
-    }*/
 
     containsAuthors(authors, query) {
         for(const author of authors){
@@ -90,8 +87,7 @@ class SearchBook extends Component {
                                         <Book 
                                             book={book} 
                                             books={this.props.books}
-                                            category={'ALL'} 
-                                            insideListBooks={false}
+                                            category={'ALL'}
                                             onChangeCategory={(choice) => this.props.handleChangeCategory(choice)}
                                         />
                                     </ol>
@@ -102,6 +98,13 @@ class SearchBook extends Component {
             </div>
         )
     }
+}
+
+SearchBook.propTypes = {
+    books: PropTypes.array.isRequired,
+    handleChangeCategory: PropTypes.func.isRequired,
+    handleSearchBook: PropTypes.func.isRequired,
+    searchedBooks: PropTypes.array.isRequired  
 }
 
 export default SearchBook;

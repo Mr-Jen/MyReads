@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Book from './Book'
+import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -43,8 +44,7 @@ const BookShelf = props => {
                             <Book 
                                 books={props.books}
                                 book={book} 
-                                category={props.shelfTitle}
-                                insideListBooks={true} 
+                                category={props.shelfTitle} 
                                 onChangeCategory={(choice) => props.handleChangeCategory(choice)}
                             />
                         </ol>
@@ -54,6 +54,11 @@ const BookShelf = props => {
             <br></br>
         </div>
     )
+}
+
+BookShelf.propTypes = {
+    handleChangeCategory: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired
 }
 
 export default BookShelf;

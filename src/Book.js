@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -65,7 +66,7 @@ const Book = props => {
                                     </div>
                                     {book.imageLinks ? 
                                         <CardContent style={{ width: 128, height: 180, backgroundImage: `url("${book.imageLinks.smallThumbnail}")`}}/>
-                                        :<p>No Image</p>
+                                        :<CardContent style={{ width: 128, height: 180}}/>
                                     }
                                     
                                     <div style={{marginLeft: 5, marginRight: 5, marginBottom: 2}} className="book-title">
@@ -88,6 +89,13 @@ const Book = props => {
             </div>
         </div>
     )
+}
+
+Book.propTypes = {
+    books: PropTypes.array.isRequired,
+    book: PropTypes.object.isRequired,
+    category: PropTypes.string, 
+    onChangeCategory: PropTypes.func.isRequired,
 }
 
 export default Book;
