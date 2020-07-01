@@ -40,7 +40,13 @@ const BookShelf = props => {
                 <ExpansionPanelDetails>
                     {filterBooksByShelf(props.books, props.shelf).map((book) =>
                         <ol key={book.title}>
-                            <Book book={book} category={props.shelfTitle} onChangeCategory={(choice) => props.handleChangeCategory(choice)}/>
+                            <Book 
+                                books={props.books}
+                                book={book} 
+                                category={props.shelfTitle}
+                                insideListBooks={true} 
+                                onChangeCategory={(choice) => props.handleChangeCategory(choice)}
+                            />
                         </ol>
                     )}
                 </ExpansionPanelDetails>

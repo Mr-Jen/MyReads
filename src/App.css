@@ -7,7 +7,7 @@ body {
 }
 
 body, .app {
-  background: white;
+  background: #181d44;
 }
 
 /* main page */
@@ -25,6 +25,7 @@ body, .app {
 }
 
 .list-books-content {
+  margin-top: 2%;
   padding: 0 0 80px;
   flex: 1;
 }

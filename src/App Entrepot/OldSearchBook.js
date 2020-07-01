@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import './SearchBook'
-
 import Book from './Book'
 
 class SearchBook extends Component {
@@ -29,29 +27,15 @@ class SearchBook extends Component {
         }
     }
 
-    onChangeQuery = query => {
-        this.updateQuery(query)
-        query !== '' && this.props.handleSearchBook(query)
-    }
-
-    filterBooks(filteredBooks, listBooks){
-        const res = []
-        for(const filteredBook of filteredBooks){
-            let added = false
-            for(const listBook of listBooks){
-                if(listBook.id === filteredBook.id){
-                  res.push(listBook)
-                  added = true  
-                } 
-            }
-            !added && res.push(filteredBook)
-        }
-        return res
-    }
-
     render(){
-        const { query} = this.state;
-        const books  = this.props.searchedBooks
+        const { query } = this.state;
+        const { books } = this.props;
+
+        const showingBooks = query === ''
+            ? books
+            : books.filter((c) => (
+                c.title.toLowerCase().includes(query.toLowerCase()) || this.containsAuthors(c.authors, query)
+              ))
 
         return(
             <div className="search-books">
@@ -67,12 +51,12 @@ class SearchBook extends Component {
                             type='text'
                             placeholder='Search by Author or Title'
                             value={query}
-                            onChange={(event) => this.onChangeQuery(event.target.value)}
+                            onChange={(event) => this.updateQuery(event.target.value)}
                         />
                     </div>
                 </div>
                 <div style={{marginTop: 80, marginLeft: 30, marginBottom: -50, border: 1}} className='show-input'>
-                    <p style={{color:'white'}}>
+                    <p>
                         <b>
                             {'Searching for: '}
                             <i>
@@ -83,20 +67,15 @@ class SearchBook extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {books.error || query === ''
-                            ?   <p style={{color:'white'}}>No books here yet</p>
-                            :   this.filterBooks(this.props.searchedBooks, this.props.books).map((book) =>
-                                    <ol key={book.id}>
-                                        <Book 
-                                            book={book} 
-                                            books={this.props.books}
-                                            category={'ALL'} 
-                                            insideListBooks={false}
-                                            onChangeCategory={(choice) => this.props.handleChangeCategory(choice)}
-                                        />
-                                    </ol>
-                                    )
-                        }
+                        {showingBooks.map((book) =>
+                            <ol key={book.title}>
+                                <Book 
+                                    book={book} 
+                                    onChangeCategory={(choice) => this.props.handleChangeCategory(choice)}
+                                    marginBot={20}
+                                />
+                            </ol>
+                        )}
                     </ol>
                 </div>
             </div>

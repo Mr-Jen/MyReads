@@ -9,7 +9,8 @@ import SearchBook from './SearchBook'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    searchedBooks : []
   }
 
   componentDidMount(){
@@ -26,8 +27,6 @@ class BooksApp extends React.Component {
   }
 
   handleChangeCategory = choice => {
-    console.log('Inside App.js Changed to: ', choice[1])
-    console.log(choice[0])
     BooksAPI.update(choice[0], choice[1])
       .then(()=>{
         this.getAllBooks(); 
@@ -35,14 +34,35 @@ class BooksApp extends React.Component {
       )
   }
 
+  handleSearchBook = query => {
+    const books = BooksAPI.search(query.trim())
+    books.then((res) => {
+        this.setState(() => ({
+          searchedBooks: res
+        }))
+      })
+        .catch(() => {
+          return 'Request failed'
+        })
+  }
+
+
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={()=> (
-          <ListBooks books={this.state.books} handleChangeCategory={(choice) => this.handleChangeCategory(choice)}/>
+          <ListBooks 
+            books={this.state.books} 
+            handleChangeCategory={(choice) => this.handleChangeCategory(choice)}
+          />
         )}/>
         <Route path='/search' render={({ history }) => (
-          <SearchBook/>
+          <SearchBook 
+            books={this.state.books}
+            handleChangeCategory={(choice) => this.handleChangeCategory(choice)}
+            handleSearchBook={(query) => this.handleSearchBook(query)}
+            searchedBooks={this.state.searchedBooks}
+          />
         )}/>
       </div>
     )
